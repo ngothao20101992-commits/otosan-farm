@@ -190,6 +190,26 @@
     .cat-page .cat-no{position:static;display:block;margin-bottom:6px;color:var(--ink-soft);}
   }
 
+  /* flipbook — progressive enhancement; falls back to .cat-pages if JS/lib absent */
+  .flip-wrap{display:none;}
+  #catalogue.flip-on .flip-wrap{display:block;}
+  #catalogue.flip-on .cat-pages{display:none;}
+  #flipbook{margin:0 auto;max-width:1080px;touch-action:pan-y;}
+  #flipbook .fp{background:var(--paper);overflow:hidden;}
+  #flipbook .fp img{width:100%;height:100%;display:block;object-fit:cover;}
+  #flipbook .--top,#flipbook .stf__item{box-shadow:0 22px 55px rgba(36,26,18,0.22);}
+  .flip-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:22px;}
+  .flip-btn{
+    width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid var(--line-strong);background:var(--paper);color:var(--ink);
+    border-radius:2px;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease;
+  }
+  .flip-btn:hover:not(:disabled){background:var(--soil);color:var(--paper);border-color:var(--soil);}
+  .flip-btn:disabled{opacity:0.35;cursor:default;}
+  .flip-btn svg{width:18px;height:18px;}
+  .flip-count{font-family:var(--mono);font-size:12px;letter-spacing:0.08em;color:var(--ink-soft);min-width:70px;text-align:center;}
+  .flip-hint{margin-top:10px;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:0.05em;color:var(--husk);}
+
   /* the manifest document block — the hero's thesis */
   .manifest{
     margin-top:52px;border-top:1px solid var(--line-dark-strong);
@@ -576,6 +596,19 @@
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke="currentColor" stroke-width="1.8"/></svg>
         <span data-i18n="catalogue.dl">Tải bản PDF (9 trang · 1,8 MB)</span></a>
     </div>
+    <div class="flip-wrap">
+      <div id="flipbook" aria-hidden="true"></div>
+      <div class="flip-controls">
+        <button type="button" class="flip-btn" id="flipPrev" aria-label="Trang trước / 前のページ">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8"/></svg>
+        </button>
+        <span class="flip-count" id="flipCount">1 / 9</span>
+        <button type="button" class="flip-btn" id="flipNext" aria-label="Trang sau / 次のページ">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8"/></svg>
+        </button>
+      </div>
+      <p class="flip-hint" data-i18n="catalogue.hint">Kéo góc trang hoặc bấm mũi tên để lật</p>
+    </div>
     <div class="cat-pages">
       <div class="cat-page"><span class="cat-no">01 / 09</span><img src="assets/catalogue/p1.jpg" alt="OTOSAN FARM catalogue — trang 1" loading="lazy" width="1240" height="1755"></div>
       <div class="cat-page"><span class="cat-no">02 / 09</span><img src="assets/catalogue/p2.jpg" alt="OTOSAN FARM catalogue — trang 2" loading="lazy" width="1240" height="1755"></div>
@@ -772,7 +805,7 @@ const i18n = {
     "nav.catalogue":"Catalogue","catalogue.btn":"Xem catalogue xuất khẩu (tiếng Nhật)",
     "catalogue.eyebrow":"Catalogue","catalogue.h2":"Catalogue xuất khẩu",
     "catalogue.lead":"Bản giới thiệu đầy đủ bằng tiếng Nhật — câu chuyện nông trại, quy trình từ vườn cây đến nhân xanh, định hướng hương vị và hướng dẫn pha.",
-    "catalogue.dl":"Tải bản PDF (9 trang · 1,8 MB)",
+    "catalogue.dl":"Tải bản PDF (9 trang · 1,8 MB)","catalogue.hint":"Kéo góc trang hoặc bấm mũi tên để lật",
     "story.photocap":"Gia đình OTOSAN FARM tại vườn cà phê, Đắk Lắk",
     "gallery.eyebrow":"Hình ảnh thực tế","gallery.h2":"Từ vườn cây đến bao bì thành phẩm",
     "gallery.c1":"Hàng cây tại nông trại","gallery.c2":"Cà phê vừa thu hái","gallery.c3":"Phin cà phê truyền thống","gallery.c4":"Sơ chế natural, phơi khô tự nhiên","gallery.c5":"Chăm sóc vườn hằng ngày","gallery.c6":"Espresso từ Fine Robusta","gallery.c7":"Sẵn sàng xuất khẩu",
@@ -830,7 +863,7 @@ const i18n = {
     "nav.catalogue":"カタログ","catalogue.btn":"カタログを見る",
     "catalogue.eyebrow":"カタログ","catalogue.h2":"輸出カタログ",
     "catalogue.lead":"農園のストーリー、木から生豆までの工程、味づくりの方向性、淹れ方までをまとめた日本語カタログです。",
-    "catalogue.dl":"PDF版をダウンロード（9ページ・1.8MB）",
+    "catalogue.dl":"PDF版をダウンロード（9ページ・1.8MB）","catalogue.hint":"ページの角をドラッグ、または矢印で移動",
     "story.photocap":"ダクラク省の農園にてOTOSAN FARMの家族",
     "gallery.eyebrow":"実際の写真","gallery.h2":"農園から完成した製品まで",
     "gallery.c1":"農園の畑","gallery.c2":"収穫したばかりのコーヒー","gallery.c3":"伝統的なベトナムコーヒー(フィン)","gallery.c4":"ナチュラル精選、天日乾燥","gallery.c5":"日々の畑の手入れ","gallery.c6":"ファインロブスタのエスプレッソ","gallery.c7":"輸出準備完了",
@@ -994,6 +1027,95 @@ if(firstChip){
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll);
   onScroll();
+})();
+</script>
+
+<script src="assets/vendor/page-flip.browser.js"></script>
+<script>
+// Catalogue flipbook — progressive enhancement. If anything fails, the stacked
+// images in .cat-pages remain the visible fallback.
+(function(){
+  var sec = document.getElementById('catalogue');
+  var mount = document.getElementById('flipbook');
+  if(!sec || !mount || !window.St || !St.PageFlip) return;
+
+  var srcs = [].slice.call(sec.querySelectorAll('.cat-pages .cat-page img'))
+    .map(function(im){ return im.getAttribute('src'); });
+  if(srcs.length < 2) return;
+
+  var started = false;
+  function start(){
+    if(started) return; started = true;
+
+    srcs.forEach(function(src, i){
+      var d = document.createElement('div');
+      d.className = 'fp';
+      var im = new Image();
+      im.src = src; im.alt = 'Catalogue trang ' + (i + 1); im.draggable = false;
+      d.appendChild(im);
+      mount.appendChild(d);
+    });
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var pf;
+    try {
+      pf = new St.PageFlip(mount, {
+        width: 460, height: 651, size: 'stretch',
+        minWidth: 250, maxWidth: 1050, minHeight: 354, maxHeight: 1486,
+        drawShadow: true, maxShadowOpacity: 0.35,
+        showCover: false, usePortrait: true, mobileScrollSupport: true,
+        swipeDistance: 20, flippingTime: reduce ? 0 : 700
+      });
+      pf.loadFromHTML(mount.querySelectorAll('.fp'));
+    } catch(e){ return; }
+
+    sec.classList.add('flip-on');
+
+    var total = srcs.length;
+    var count = document.getElementById('flipCount');
+    var prev = document.getElementById('flipPrev');
+    var next = document.getElementById('flipNext');
+    function upd(){
+      var p = (pf.getCurrentPageIndex ? pf.getCurrentPageIndex() : 0) + 1;
+      if(count) count.textContent = p + ' / ' + total;
+      if(prev) prev.disabled = p <= 1;
+      if(next) next.disabled = p >= total;
+    }
+    pf.on('flip', upd);
+    pf.on('changeState', upd);
+    if(prev) prev.addEventListener('click', function(){ pf.flipPrev(); });
+    if(next) next.addEventListener('click', function(){ pf.flipNext(); });
+    sec.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowLeft'){ pf.flipPrev(); }
+      else if(e.key === 'ArrowRight'){ pf.flipNext(); }
+    });
+    var rt;
+    window.addEventListener('resize', function(){
+      clearTimeout(rt); rt = setTimeout(function(){ try{ pf.update(); }catch(e){} }, 200);
+    });
+    upd();
+  }
+
+  // Trigger init as soon as the catalogue is likely to be seen — via several
+  // independent signals so it never depends on just one of them.
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      if(entries.some(function(en){ return en.isIntersecting; })){ io.disconnect(); start(); }
+    }, {rootMargin: '400px 0px'});
+    io.observe(sec);
+  }
+  function nearViewport(){
+    var r = sec.getBoundingClientRect();
+    return r.top < (window.innerHeight + 500) && r.bottom > -500;
+  }
+  function scrollCheck(){ if(nearViewport()){ window.removeEventListener('scroll', scrollCheck); start(); } }
+  window.addEventListener('scroll', scrollCheck, {passive:true});
+  window.addEventListener('load', function(){ if(nearViewport()) start(); });
+  // any in-page link that jumps to the catalogue
+  [].forEach.call(document.querySelectorAll('a[href="#catalogue"]'), function(a){
+    a.addEventListener('click', function(){ setTimeout(start, 60); });
+  });
+  setTimeout(function(){ if(nearViewport()) start(); }, 2500);
 })();
 </script>
 
