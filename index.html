@@ -163,6 +163,33 @@
   nav.links a.nav-pdf{display:inline-flex;align-items:center;gap:6px;color:var(--iron);}
   nav.links a.nav-pdf svg{width:13px;height:13px;}
 
+  /* ---------- CATALOGUE (inline page viewer) ---------- */
+  .catalogue{background:var(--paper-inset);}
+  .cat-top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:40px;}
+  .cat-top .section-head{margin-bottom:0;}
+  .cat-dl{
+    display:inline-flex;align-items:center;gap:9px;flex:none;
+    padding:12px 20px;background:var(--soil);color:var(--paper);
+    font-family:var(--body);font-weight:600;font-size:13.5px;text-decoration:none;
+    border:1px solid var(--soil);border-radius:2px;transition:background .18s ease;
+  }
+  .cat-dl:hover{background:var(--soil-raise);}
+  .cat-dl svg{width:15px;height:15px;flex:none;}
+  .cat-pages{display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .cat-page{position:relative;width:100%;max-width:720px;}
+  .cat-page img{
+    width:100%;height:auto;display:block;
+    border:1px solid var(--line);
+    box-shadow:0 10px 34px rgba(36,26,18,0.12);
+  }
+  .cat-page .cat-no{
+    position:absolute;top:12px;left:-52px;font-family:var(--mono);font-size:11px;
+    letter-spacing:0.1em;color:var(--husk);
+  }
+  @media (max-width:900px){
+    .cat-page .cat-no{position:static;display:block;margin-bottom:6px;color:var(--ink-soft);}
+  }
+
   /* the manifest document block — the hero's thesis */
   .manifest{
     margin-top:52px;border-top:1px solid var(--line-dark-strong);
@@ -420,8 +447,8 @@
       <a href="#story" data-i18n="nav.story">Câu chuyện</a>
       <a href="#products" data-i18n="nav.products">Sản phẩm</a>
       <a href="#trace" data-i18n="nav.trace">Truy xuất nguồn gốc</a>
-      <a class="nav-pdf" href="assets/otosan-farm-catalogue-jp.pdf" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="nav.catalogue">Catalogue</span></a>
+      <a class="nav-pdf" href="#catalogue">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h11a2 2 0 012 2v12H6a2 2 0 01-2-2V5zm13 2h3v10a2 2 0 01-2 2h-1" stroke="currentColor" stroke-width="1.7"/></svg><span data-i18n="nav.catalogue">Catalogue</span></a>
       <a href="#japan" data-i18n="nav.japan">Thị trường Nhật Bản</a>
       <a href="#gallery" data-i18n="nav.gallery">Hình ảnh</a>
       <a href="#contact" data-i18n="nav.contact">Liên hệ</a>
@@ -501,9 +528,9 @@
       <p class="eyebrow" data-i18n="products.eyebrow">Sản phẩm</p>
       <h2 data-i18n="products.h2">Fine Robusta Việt Nam</h2>
       <p data-i18n="products.p">Giai đoạn đầu, OTOSAN FARM tập trung vào ba dòng sản phẩm cốt lõi, chọn lọc từ vùng nguyên liệu Đắk Lắk.</p>
-      <a class="btn-catalogue" href="assets/otosan-farm-catalogue-jp.pdf" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8m-5-5l5 5m-5-5v5h5M9 13h6M9 17h4" stroke="currentColor" stroke-width="1.7"/></svg>
-        <span data-i18n="catalogue.btn">Xem catalogue xuất khẩu (PDF · tiếng Nhật)</span></a>
+      <a class="btn-catalogue" href="#catalogue">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h11a2 2 0 012 2v12H6a2 2 0 01-2-2V5zm13 2h3v10a2 2 0 01-2 2h-1" stroke="currentColor" stroke-width="1.7"/></svg>
+        <span data-i18n="catalogue.btn">Xem catalogue xuất khẩu (tiếng Nhật)</span></a>
     </div>
     <div class="pgrid">
       <div class="pcard">
@@ -533,6 +560,32 @@
           <span class="ptag" data-i18n="products.c3t">B2C / Bán lẻ</span>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section catalogue" id="catalogue">
+  <div class="wrap">
+    <div class="cat-top">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="catalogue.eyebrow">Catalogue</p>
+        <h2 data-i18n="catalogue.h2">Catalogue xuất khẩu</h2>
+        <p data-i18n="catalogue.lead">Bản giới thiệu đầy đủ bằng tiếng Nhật — câu chuyện nông trại, quy trình từ vườn cây đến nhân xanh, định hướng hương vị và hướng dẫn pha.</p>
+      </div>
+      <a class="cat-dl" href="assets/otosan-farm-catalogue-jp.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span data-i18n="catalogue.dl">Tải bản PDF (9 trang · 1,8 MB)</span></a>
+    </div>
+    <div class="cat-pages">
+      <div class="cat-page"><span class="cat-no">01 / 09</span><img src="assets/catalogue/p1.jpg" alt="OTOSAN FARM catalogue — trang 1" loading="lazy" width="1240" height="1755"></div>
+      <div class="cat-page"><span class="cat-no">02 / 09</span><img src="assets/catalogue/p2.jpg" alt="OTOSAN FARM catalogue — trang 2" loading="lazy" width="1240" height="1755"></div>
+      <div class="cat-page"><span class="cat-no">03 / 09</span><img src="assets/catalogue/p3.jpg" alt="OTOSAN FARM catalogue — trang 3" loading="lazy" width="1240" height="1755"></div>
+      <div class="cat-page"><span class="cat-no">04 / 09</span><img src="assets/catalogue/p4.jpg" alt="OTOSAN FARM catalogue — trang 4" loading="lazy" width="1240" height="1755"></div>
+      <div class="cat-page"><span class="cat-no">05 / 09</span><img src="assets/catalogue/p5.jpg" alt="OTOSAN FARM catalogue — trang 5" loading="lazy" width="1240" height="1755"></div>
+      <div class="cat-page"><span class="cat-no">06 / 09</span><img src="assets/catalogue/p6.jpg" alt="OTOSAN FARM catalogue — trang 6" loading="lazy" width="1240" height="1755"></div>
+      <div class="cat-page"><span class="cat-no">07 / 09</span><img src="assets/catalogue/p7.jpg" alt="OTOSAN FARM catalogue — trang 7" loading="lazy" width="1240" height="1755"></div>
+      <div class="cat-page"><span class="cat-no">08 / 09</span><img src="assets/catalogue/p8.jpg" alt="OTOSAN FARM catalogue — trang 8" loading="lazy" width="1240" height="1755"></div>
+      <div class="cat-page"><span class="cat-no">09 / 09</span><img src="assets/catalogue/p9.jpg" alt="OTOSAN FARM catalogue — trang 9" loading="lazy" width="1240" height="1755"></div>
     </div>
   </div>
 </section>
@@ -617,9 +670,9 @@
           <li data-i18n="japan.l3">品質検査書類・原産地証明などの輸出書類対応</li>
           <li data-i18n="japan.l4">サンプル出荷から本格取引まで柔軟に対応</li>
         </ul>
-        <a class="btn-catalogue" href="assets/otosan-farm-catalogue-jp.pdf" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8m-5-5l5 5m-5-5v5h5M9 13h6M9 17h4" stroke="currentColor" stroke-width="1.7"/></svg>
-          <span data-i18n="catalogue.btn">Xem catalogue xuất khẩu (PDF · tiếng Nhật)</span></a>
+        <a class="btn-catalogue" href="#catalogue">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h11a2 2 0 012 2v12H6a2 2 0 01-2-2V5zm13 2h3v10a2 2 0 01-2 2h-1" stroke="currentColor" stroke-width="1.7"/></svg>
+          <span data-i18n="catalogue.btn">Xem catalogue xuất khẩu (tiếng Nhật)</span></a>
       </div>
       <div class="jcard">
         <img src="assets/pour-over-brewing.jpg" alt="Pha cà phê OTOSAN FARM kiểu pour-over" loading="lazy">
@@ -716,7 +769,10 @@
 const i18n = {
   vi: {
     "nav.story":"Câu chuyện","nav.products":"Sản phẩm","nav.trace":"Truy xuất nguồn gốc","nav.japan":"Thị trường Nhật Bản","nav.gallery":"Hình ảnh","nav.contact":"Liên hệ","nav.cta":"Nhận báo giá",
-    "nav.catalogue":"Catalogue","catalogue.btn":"Xem catalogue xuất khẩu (PDF · tiếng Nhật)",
+    "nav.catalogue":"Catalogue","catalogue.btn":"Xem catalogue xuất khẩu (tiếng Nhật)",
+    "catalogue.eyebrow":"Catalogue","catalogue.h2":"Catalogue xuất khẩu",
+    "catalogue.lead":"Bản giới thiệu đầy đủ bằng tiếng Nhật — câu chuyện nông trại, quy trình từ vườn cây đến nhân xanh, định hướng hương vị và hướng dẫn pha.",
+    "catalogue.dl":"Tải bản PDF (9 trang · 1,8 MB)",
     "story.photocap":"Gia đình OTOSAN FARM tại vườn cà phê, Đắk Lắk",
     "gallery.eyebrow":"Hình ảnh thực tế","gallery.h2":"Từ vườn cây đến bao bì thành phẩm",
     "gallery.c1":"Hàng cây tại nông trại","gallery.c2":"Cà phê vừa thu hái","gallery.c3":"Phin cà phê truyền thống","gallery.c4":"Sơ chế natural, phơi khô tự nhiên","gallery.c5":"Chăm sóc vườn hằng ngày","gallery.c6":"Espresso từ Fine Robusta","gallery.c7":"Sẵn sàng xuất khẩu",
@@ -771,7 +827,10 @@ const i18n = {
   },
   ja: {
     "nav.story":"ストーリー","nav.products":"製品","nav.trace":"トレーサビリティ","nav.japan":"日本市場","nav.gallery":"写真","nav.contact":"お問い合わせ","nav.cta":"見積もり依頼",
-    "nav.catalogue":"カタログ","catalogue.btn":"輸出カタログを見る（PDF）",
+    "nav.catalogue":"カタログ","catalogue.btn":"カタログを見る",
+    "catalogue.eyebrow":"カタログ","catalogue.h2":"輸出カタログ",
+    "catalogue.lead":"農園のストーリー、木から生豆までの工程、味づくりの方向性、淹れ方までをまとめた日本語カタログです。",
+    "catalogue.dl":"PDF版をダウンロード（9ページ・1.8MB）",
     "story.photocap":"ダクラク省の農園にてOTOSAN FARMの家族",
     "gallery.eyebrow":"実際の写真","gallery.h2":"農園から完成した製品まで",
     "gallery.c1":"農園の畑","gallery.c2":"収穫したばかりのコーヒー","gallery.c3":"伝統的なベトナムコーヒー(フィン)","gallery.c4":"ナチュラル精選、天日乾燥","gallery.c5":"日々の畑の手入れ","gallery.c6":"ファインロブスタのエスプレッソ","gallery.c7":"輸出準備完了",
