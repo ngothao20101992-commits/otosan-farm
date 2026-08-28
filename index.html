@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTOSAN FARM — Fine Robusta Việt Nam → Nhật Bản</title>
+<meta name="description" content="OTOSAN FARM — nông trại cà phê gia đình tại Đắk Lắk. Fine Robusta nhân xanh, rang hạt, rang xay, truy xuất nguồn gốc theo từng lô, xuất khẩu sang Nhật Bản.">
+<link rel="icon" type="image/png" href="assets/favicon-source.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&family=Shippori+Mincho:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --soil:#2b1810;          /* darkest roasted-basalt ground */
+    --soil-raise:#3a2114;     /* card on dark */
+    --soil-hi:#472a19;
+    --indigo:#1d323f;         /* aizome — Japan side / alt dark band */
+    --indigo-raise:#274453;
+    --iron:#9a3c22;           /* oxidised iron-red of Đắk Lắk earth — structural accent */
+    --iron-soft:#b8542f;
+    --ember:#d68a49;          /* roasted-bean amber — CTA + focus only */
+    --ember-hi:#e6a468;
+    --paper:#f0ebdd;          /* unbleached document paper — light ground */
+    --paper-inset:#e6dcc6;
+    --husk:#b3a184;           /* muted parchment — captions, hairlines on dark */
+    --leaf:#55603c;           /* dried coffee-leaf green — one band only */
+    --ink:#241a12;            /* text on paper */
+    --ink-soft:#5b4a3b;
+    --line:rgba(36,26,18,0.16);
+    --line-strong:rgba(36,26,18,0.34);
+    --line-dark:rgba(240,235,221,0.18);
+    --line-dark-strong:rgba(240,235,221,0.34);
+
+    --slab:'Zilla Slab','Shippori Mincho',Georgia,serif;
+    --jp-slab:'Shippori Mincho','Zilla Slab',serif;
+    --body:'IBM Plex Sans','IBM Plex Sans JP',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+
+    --maxw:1180px;
+    --pad:32px;
+    --header-h:74px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 16px);}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  html[data-lang="ja"] body{ font-family:'IBM Plex Sans JP','IBM Plex Sans',system-ui,sans-serif; }
+  html[data-lang="ja"] h1,
+  html[data-lang="ja"] h2,
+  html[data-lang="ja"] h3{ font-family:var(--jp-slab); letter-spacing:0; }
+
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  h1,h2,h3{font-family:var(--slab);font-weight:600;line-height:1.1;letter-spacing:-0.005em;color:var(--ink);}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);}
+
+  /* keyboard focus — single consistent treatment */
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{
+    outline:2px solid var(--ember);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--iron);
+    display:flex;align-items:center;gap:12px;margin-bottom:20px;
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--iron);flex:none;}
+
+  /* ---------- SCROLL PROGRESS ---------- */
+  #progress{
+    position:fixed;top:0;left:0;height:2px;width:0%;
+    background:var(--ember);z-index:120;transition:width .1s linear;
+  }
+
+  /* ---------- HEADER / NAV ---------- */
+  header.site{
+    position:sticky;top:0;z-index:100;
+    background:rgba(240,235,221,0.92);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;
+    max-width:var(--maxw);margin:0 auto;padding:14px var(--pad);min-height:var(--header-h);}
+  .brandmark{display:flex;align-items:center;}
+  .brandmark img{height:44px;width:auto;}
+  nav.links{display:flex;gap:30px;font-size:14px;font-weight:500;}
+  nav.links a{text-decoration:none;position:relative;padding-bottom:4px;white-space:nowrap;}
+  nav.links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+    background:var(--iron);transform:scaleX(0);transform-origin:left;transition:transform .25s ease;}
+  nav.links a:hover::after,nav.links a:focus-visible::after{transform:scaleX(1);}
+  .nav-right{display:flex;align-items:center;gap:16px;}
+  .langtoggle{display:flex;border:1px solid var(--line-strong);border-radius:2px;overflow:hidden;}
+  .langtoggle button{
+    border:none;background:transparent;padding:8px 13px;cursor:pointer;
+    font-family:var(--mono);font-size:12px;font-weight:500;color:var(--ink);letter-spacing:0.06em;
+    transition:background .15s ease,color .15s ease;
+  }
+  .langtoggle button + button{border-left:1px solid var(--line);}
+  .langtoggle button[aria-pressed="true"]{background:var(--soil);color:var(--paper);}
+  .navcta{
+    background:var(--ember);color:var(--soil);padding:10px 18px;border-radius:2px;
+    font-size:13.5px;font-weight:600;text-decoration:none;white-space:nowrap;
+    transition:background .18s ease,transform .18s ease;
+  }
+  .navcta:hover{background:var(--ember-hi);}
+
+  /* ---------- HERO — EXPORT MANIFEST ---------- */
+  .hero{position:relative;background:var(--soil);color:var(--paper);overflow:hidden;}
+  .hero-photo{
+    position:absolute;inset:0;z-index:0;
+    background-image:url('assets/coffee-tree-branch.jpg');
+    background-size:cover;background-position:64% 38%;
+    opacity:0.4;filter:saturate(0.82) contrast(1.02);
+  }
+  .hero-photo::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(104deg,rgba(30,17,10,0.97) 0%,rgba(30,17,10,0.9) 42%,rgba(30,17,10,0.62) 72%,rgba(30,17,10,0.42) 100%);
+  }
+  .hero-inner{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;
+    padding:88px var(--pad) 72px;}
+  .hero .eyebrow{color:var(--ember);}
+  .hero .eyebrow::before{background:var(--ember);}
+  .hero h1{
+    color:var(--paper);font-size:clamp(33px,5.2vw,61px);max-width:16ch;font-weight:600;
+    letter-spacing:-0.015em;
+  }
+  .hero h1 em{font-style:normal;color:var(--ember);}
+  .hero .lead{margin-top:24px;max-width:52ch;font-size:17.5px;color:rgba(240,235,221,0.8);}
+  .hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:2px;
+    font-weight:600;font-size:14.5px;text-decoration:none;border:1px solid transparent;
+    cursor:pointer;transition:background .18s ease,border-color .18s ease,color .18s ease;
+    font-family:var(--body);
+  }
+  .btn-primary{background:var(--ember);color:var(--soil);}
+  .btn-primary:hover{background:var(--ember-hi);}
+  .btn-ghost{border-color:rgba(240,235,221,0.42);color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--paper);background:rgba(240,235,221,0.07);}
+  .btn svg{width:15px;height:15px;flex:none;}
+
+  /* the manifest document block — the hero's thesis */
+  .manifest{
+    margin-top:52px;border-top:1px solid var(--line-dark-strong);
+    display:grid;grid-template-columns:1fr 1fr;
+  }
+  .manifest .m-row{
+    padding:16px 22px 15px 0;border-bottom:1px solid var(--line-dark);
+    display:flex;flex-direction:column;gap:5px;
+  }
+  .manifest .m-row:nth-child(odd){border-right:1px solid var(--line-dark);padding-right:28px;}
+  .manifest .m-row:nth-child(even){padding-left:28px;}
+  .manifest dt{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--husk);
+  }
+  .manifest dd{font-size:14.5px;color:var(--paper);font-weight:500;line-height:1.45;}
+  .manifest .m-route dd{display:flex;align-items:center;gap:10px;font-family:var(--mono);
+    letter-spacing:0.04em;color:var(--ember);font-size:13.5px;}
+  .manifest .m-route svg{width:34px;height:8px;flex:none;}
+
+  /* one orchestrated moment: the manifest stamps in on load.
+     Transform-only, no opacity — a stalled animation still leaves every line visible. */
+  @keyframes rise{from{transform:translateY(14px);}to{transform:translateY(0);}}
+  .hero-inner > *{animation:rise .62s cubic-bezier(.22,.61,.36,1) both;}
+  .hero-inner > .eyebrow{animation-delay:.02s;}
+  .hero-inner > h1{animation-delay:.08s;}
+  .hero-inner > .lead{animation-delay:.16s;}
+  .hero-inner > .hero-cta{animation-delay:.24s;}
+  .hero-inner > .manifest{animation-delay:.32s;}
+  .manifest .m-row{animation:rise .5s cubic-bezier(.22,.61,.36,1) both;animation-delay:calc(.38s + var(--i,0) * 55ms);}
+
+  /* ---------- HERO CREDENTIALS STRIP ---------- */
+  .creds{position:relative;z-index:2;background:var(--soil-raise);
+    border-top:1px solid var(--line-dark);}
+  .creds .wrap{display:grid;grid-template-columns:repeat(4,1fr);}
+  .creds .cred{padding:20px 22px 20px 0;border-right:1px solid var(--line-dark);
+    display:flex;gap:11px;align-items:flex-start;}
+  .creds .cred:last-child{border-right:none;}
+  .creds .tick{width:7px;height:7px;background:var(--ember);margin-top:6px;flex:none;}
+  .creds .cred p{font-size:13px;color:rgba(240,235,221,0.82);line-height:1.5;}
+
+  /* ---------- SECTION SHELL ---------- */
+  .section{padding:92px 0;}
+  .section-head{max-width:62ch;margin-bottom:52px;}
+  .section-head h2{font-size:clamp(26px,3.3vw,40px);}
+  .section-head p{margin-top:15px;color:var(--ink-soft);font-size:16px;}
+
+  /* on dark bands */
+  .band-soil{background:var(--soil);color:var(--paper);}
+  .band-indigo{background:var(--indigo);color:var(--paper);}
+  .band-leaf{background:var(--leaf);color:var(--paper);}
+  .band-deepest{background:#1c110b;color:var(--paper);}
+  .band-soil h2,.band-indigo h2,.band-leaf h2,.band-deepest h2{color:var(--paper);}
+  .band-soil .section-head p,.band-indigo .section-head p,.band-leaf .section-head p,.band-deepest .section-head p{color:rgba(240,235,221,0.78);}
+  .band-soil .eyebrow,.band-indigo .eyebrow,.band-leaf .eyebrow,.band-deepest .eyebrow{color:var(--ember);}
+  .band-soil .eyebrow::before,.band-indigo .eyebrow::before,.band-leaf .eyebrow::before,.band-deepest .eyebrow::before{background:var(--ember);}
+
+  /* ---------- STORY ---------- */
+  .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+  .story-col p{margin-bottom:16px;color:#4c3c2f;font-size:15.5px;}
+  .story-col p.big{font-family:var(--slab);font-size:22px;line-height:1.5;color:var(--soil);font-weight:500;}
+  html[data-lang="ja"] .story-col p.big{font-family:var(--jp-slab);}
+  .story-photo{margin-bottom:30px;}
+  .story-photo img{width:100%;height:330px;object-fit:cover;}
+  .story-photo figcaption{font-family:var(--mono);font-size:11.5px;color:#5c4b3a;margin-top:10px;letter-spacing:0.03em;}
+  .timeline{border-left:2px solid var(--line-strong);padding-left:24px;}
+  .timeline .t-item{position:relative;padding-bottom:24px;counter-increment:tl;}
+  .timeline .t-item:last-child{padding-bottom:0;}
+  .timeline .t-item::before{
+    content:counter(tl,decimal-leading-zero);position:absolute;left:-24px;top:0;
+    transform:translateX(-50%);
+    background:var(--paper);color:var(--iron);font-family:var(--mono);font-size:10px;
+    font-weight:600;padding:2px 0;letter-spacing:0.04em;
+  }
+  .timeline{counter-reset:tl;}
+  .timeline .t-year{font-family:var(--mono);font-size:11px;color:var(--iron);letter-spacing:0.1em;text-transform:uppercase;}
+  .timeline .t-text{font-size:14.5px;color:#4c3c2f;margin-top:4px;}
+
+  /* ---------- PRODUCTS ---------- */
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);}
+  .pcard{background:var(--soil);padding:0 0 34px;transition:background .22s ease;}
+  .pcard:hover{background:var(--soil-raise);}
+  .pcard .pimg{width:100%;height:200px;object-fit:cover;margin-bottom:24px;filter:saturate(0.95);}
+  .pcard .pbody{padding:0 28px;}
+  .pcard .pcode{font-family:var(--mono);font-size:11px;color:var(--ember);letter-spacing:0.1em;}
+  .pcard h3{color:var(--paper);font-size:21px;margin-top:12px;}
+  .pcard p{color:rgba(240,235,221,0.74);font-size:14px;margin-top:11px;}
+  .pcard .ptag{display:inline-block;margin-top:18px;font-size:11.5px;font-family:var(--mono);
+    color:var(--ember);border:1px solid rgba(214,138,73,0.42);padding:5px 11px;letter-spacing:0.05em;}
+
+  /* ---------- TRACEABILITY — SIGNATURE ---------- */
+  .trace{background:var(--paper-inset);}
+  .trace-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:46px;align-items:start;}
+  .trace-photo{align-self:stretch;}
+  .trace-photo img{width:100%;height:100%;min-height:300px;object-fit:cover;}
+  .lotrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
+  .lotchip{
+    font-family:var(--mono);font-size:13px;background:var(--paper);border:1px solid var(--line-strong);
+    padding:11px 17px;cursor:pointer;letter-spacing:0.04em;color:var(--ink);
+    transition:background .15s ease,color .15s ease,border-color .15s ease;
+  }
+  .lotchip:hover{background:var(--soil);color:var(--paper);border-color:var(--soil);}
+  .lotchip[aria-pressed="true"]{background:var(--iron);color:var(--paper);border-color:var(--iron);}
+  .lotchip-pending{cursor:default;opacity:0.5;border-style:dashed;}
+  .lotchip-pending:hover{background:var(--paper);color:inherit;border-color:var(--line-strong);}
+
+  /* the lot document */
+  .lotdoc{margin-top:26px;background:var(--paper);border:1px solid var(--line-strong);}
+  .lotdoc .ld-top{
+    display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    padding:18px 22px;border-bottom:1px solid var(--line);
+  }
+  .lotdoc .ld-lot{font-family:var(--mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);}
+  .lotdoc .ld-lot b{display:block;font-size:27px;letter-spacing:0.04em;color:var(--soil);font-weight:600;margin-top:2px;}
+  .lotdoc .ld-status{font-family:var(--mono);font-size:11px;letter-spacing:0.06em;
+    background:var(--leaf);color:var(--paper);padding:6px 11px;}
+  /* process bar */
+  .procbar{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);}
+  .procbar .step{padding:15px 14px;border-right:1px solid var(--line);position:relative;}
+  .procbar .step:last-child{border-right:none;}
+  .procbar .step .s-ico{width:20px;height:20px;color:var(--iron);}
+  .procbar .step .s-lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--ink-soft);margin-top:8px;display:block;}
+  .procbar .step[data-active="true"]{background:var(--soil);}
+  .procbar .step[data-active="true"] .s-ico{color:var(--ember);}
+  .procbar .step[data-active="true"] .s-lbl{color:var(--paper);}
+  .lotgrid{display:grid;grid-template-columns:1fr 1fr 1fr;}
+  .lotgrid .lg-cell{padding:15px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .lotgrid .lg-cell:nth-child(3n){border-right:none;}
+  .lotgrid .lg-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--iron);}
+  .lotgrid .lg-value{font-size:14.5px;margin-top:6px;color:var(--soil);font-weight:500;line-height:1.4;}
+  .trace-note{font-size:12.5px;color:#574636;margin-top:16px;line-height:1.6;}
+
+  /* ---------- QUALITY ---------- */
+  .quality-grid{display:grid;grid-template-columns:0.85fr 1.6fr;gap:44px;align-items:stretch;}
+  .quality-photo img{width:100%;height:100%;object-fit:cover;min-height:320px;}
+  .qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--line);border:1px solid var(--line);}
+  .qitem{background:var(--paper);padding:24px 24px 26px;}
+  .qitem .qn{font-family:var(--mono);font-size:11px;color:var(--iron);letter-spacing:0.08em;}
+  .qitem h3{font-size:17px;margin-top:10px;}
+  .qitem p{font-size:14px;color:var(--ink-soft);margin-top:8px;}
+
+  /* ---------- JAPAN ---------- */
+  .jgrid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;}
+  .jlist{list-style:none;margin-top:8px;}
+  .jlist li{padding:15px 0;border-bottom:1px solid var(--line-dark);display:flex;gap:14px;font-size:15px;color:rgba(240,235,221,0.9);}
+  .jlist li::before{content:"";width:8px;height:8px;background:var(--ember);flex:none;margin-top:8px;}
+  .jcard{background:rgba(15,9,6,0.28);border:1px solid var(--line-dark-strong);padding:28px;}
+  .jcard .jc-label{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:0.12em;color:var(--ember);}
+  .jcard .jc-value{margin-top:6px;margin-bottom:18px;font-size:14.5px;color:var(--paper);}
+  .jcard .jc-value:last-child{margin-bottom:0;}
+  .jcard img{width:100%;height:190px;object-fit:cover;margin-bottom:22px;}
+
+  /* ---------- GALLERY ---------- */
+  .ggrid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:172px;gap:8px;}
+  .ggrid figure{margin:0;overflow:hidden;position:relative;background:var(--soil);}
+  .ggrid img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease;}
+  .ggrid figure:hover img{transform:scale(1.055);}
+  .ggrid .tall{grid-row:span 2;}
+  .ggrid figcaption{
+    position:absolute;left:0;right:0;bottom:0;padding:9px 11px;font-family:var(--mono);
+    font-size:10px;letter-spacing:0.04em;color:var(--paper);
+    background:linear-gradient(0deg,rgba(20,12,8,0.82),transparent);
+  }
+
+  /* ---------- CONTACT ---------- */
+  .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+  .cinfo .ci-row{padding:16px 0;border-bottom:1px solid var(--line-dark);}
+  .cinfo .ci-label{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:0.12em;color:var(--ember);}
+  .cinfo .ci-value{font-size:15.5px;margin-top:6px;color:var(--paper);}
+  form.cform{display:flex;flex-direction:column;gap:4px;}
+  form.cform .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+  form.cform label{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:0.12em;color:var(--husk);}
+  form.cform input,form.cform textarea,form.cform select{
+    background:transparent;border:none;border-bottom:1px solid var(--line-dark-strong);color:var(--paper);
+    padding:10px 2px;font-size:15px;font-family:var(--body);outline-offset:2px;
+  }
+  html[data-lang="ja"] form.cform input,html[data-lang="ja"] form.cform textarea,html[data-lang="ja"] form.cform select{font-family:'IBM Plex Sans JP',sans-serif;}
+  form.cform select{color:var(--paper);}
+  form.cform select option{color:#111;}
+  form.cform textarea{resize:vertical;min-height:96px;}
+  form.cform button{
+    margin-top:10px;align-self:flex-start;background:var(--ember);color:var(--soil);border:none;
+    padding:14px 30px;font-weight:600;font-size:14.5px;cursor:pointer;font-family:var(--body);
+    transition:background .18s ease;
+  }
+  form.cform button:hover{background:var(--ember-hi);}
+  .form-status{font-size:13.5px;color:var(--ember);margin-top:12px;min-height:1.2em;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:#1c110b;color:rgba(240,235,221,0.62);border-top:1px solid var(--line-dark);padding:30px 0;}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-size:12.5px;}
+  .foot-logo{height:32px;width:auto;opacity:0.9;}
+
+  .placeholder-flag{
+    display:inline-block;background:rgba(154,60,34,0.16);color:var(--iron-soft);
+    border:1px dashed var(--iron);font-family:var(--mono);font-size:11px;
+    padding:2px 8px;margin-left:4px;
+  }
+  .band-soil .placeholder-flag,.band-indigo .placeholder-flag,.band-deepest .placeholder-flag{
+    background:rgba(240,235,221,0.12);color:var(--ember);border-color:var(--ember);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:1000px){
+    .story-grid,.trace-grid,.quality-grid,.jgrid,.cgrid{grid-template-columns:1fr;gap:40px;}
+    .trace-photo img{min-height:240px;}
+    .creds .wrap{grid-template-columns:repeat(2,1fr);}
+    .creds .cred:nth-child(2){border-right:none;}
+    .ggrid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px;}
+  }
+  @media (max-width:760px){
+    :root{--pad:20px;}
+    html{scroll-padding-top:128px;}
+    .nav{flex-wrap:wrap;gap:10px;padding-top:12px;padding-bottom:10px;}
+    .brandmark img{height:36px;}
+    nav.links{order:3;width:100%;gap:22px;overflow-x:auto;padding:9px 0 1px;
+      font-size:12.5px;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+      border-top:1px solid var(--line);}
+    nav.links::-webkit-scrollbar{display:none;}
+    nav.links a{white-space:nowrap;padding-bottom:2px;}
+    .pgrid{grid-template-columns:1fr;}
+    .manifest{grid-template-columns:1fr;}
+    .manifest .m-row:nth-child(odd){border-right:none;padding-right:22px;}
+    .manifest .m-row:nth-child(even){padding-left:0;}
+    .lotgrid,.procbar{grid-template-columns:1fr 1fr;}
+    .lotgrid .lg-cell:nth-child(3n){border-right:1px solid var(--line);}
+    .lotgrid .lg-cell:nth-child(2n){border-right:none;}
+    .procbar .step:nth-child(2n){border-right:none;}
+    .section{padding:66px 0;}
+    .hero-inner{padding:64px var(--pad) 56px;}
+  }
+  @media (max-width:430px){
+    .creds .wrap{grid-template-columns:1fr;}
+    .creds .cred{border-right:none;border-bottom:1px solid var(--line-dark);}
+    .creds .cred:last-child{border-bottom:none;}
+    .qgrid{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:0.001ms!important;animation-iteration-count:1!important;
+      transition-duration:0.001ms!important;scroll-behavior:auto!important;}
+    .ggrid figure:hover img{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress" aria-hidden="true"></div>
+
+<header class="site">
+  <div class="nav">
+    <a class="brandmark" href="#top" aria-label="OTOSAN FARM"><img src="assets/logo-color.png" alt="OTOSAN FARM"></a>
+    <nav class="links" aria-label="Chính">
+      <a href="#story" data-i18n="nav.story">Câu chuyện</a>
+      <a href="#products" data-i18n="nav.products">Sản phẩm</a>
+      <a href="#trace" data-i18n="nav.trace">Truy xuất nguồn gốc</a>
+      <a href="#japan" data-i18n="nav.japan">Thị trường Nhật Bản</a>
+      <a href="#gallery" data-i18n="nav.gallery">Hình ảnh</a>
+      <a href="#contact" data-i18n="nav.contact">Liên hệ</a>
+    </nav>
+    <div class="nav-right">
+      <div class="langtoggle" role="group" aria-label="Ngôn ngữ / 言語">
+        <button type="button" data-setlang="vi" aria-pressed="true">VI</button>
+        <button type="button" data-setlang="ja" aria-pressed="false">JA</button>
+      </div>
+      <a class="navcta" href="#contact" data-i18n="nav.cta">Nhận báo giá</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="hero-photo" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <p class="eyebrow" data-i18n="hero.eyebrow">Đắk Lắk, Việt Nam → Nhật Bản</p>
+    <h1 data-i18n="hero.h1">Từ đất đỏ bazan đến tách cà phê <em>Nhật Bản</em></h1>
+    <p class="lead" data-i18n="hero.lead">OTOSAN FARM đưa Fine Robusta Việt Nam ra thế giới bằng con đường minh bạch, chuyên nghiệp và bền vững — bắt đầu từ chính nông trại của gia đình chúng tôi.</p>
+    <div class="hero-cta">
+      <a href="#products" class="btn btn-primary" data-i18n="hero.cta1">Xem sản phẩm</a>
+      <a href="#contact" class="btn btn-ghost" data-i18n="hero.cta2">Liên hệ hợp tác</a>
+    </div>
+
+    <dl class="manifest" aria-label="Thông tin xuất khẩu">
+      <div class="m-row" style="--i:1"><dt data-i18n="manifest.exporter">Đơn vị xuất khẩu</dt><dd data-i18n="manifest.exporterv">OTOSAN FARM — Ngô Thị Thu Thảo</dd></div>
+      <div class="m-row" style="--i:2"><dt data-i18n="manifest.commodity">Mặt hàng</dt><dd data-i18n="manifest.commodityv">Fine Robusta — nhân xanh / rang hạt / rang xay</dd></div>
+      <div class="m-row" style="--i:3"><dt data-i18n="manifest.origin">Xuất xứ</dt><dd data-i18n="manifest.originv">Đắk Lắk, Việt Nam · ~12,67°N</dd></div>
+      <div class="m-row" style="--i:4"><dt data-i18n="manifest.process">Sơ chế</dt><dd data-i18n="manifest.processv">Natural — phơi nắng tự nhiên</dd></div>
+      <div class="m-row" style="--i:5"><dt data-i18n="manifest.grade">Phân loại</dt><dd data-i18n="manifest.gradev">Sàng S13 / S16 / S18 · hạt lỗi 0%</dd></div>
+      <div class="m-row m-route" style="--i:6"><dt data-i18n="manifest.dest">Thị trường đến</dt><dd><span data-i18n="manifest.route">Đắk Lắk → Nhật Bản</span>
+        <svg viewBox="0 0 34 8" fill="none" aria-hidden="true"><path d="M0 4h30M27 1l5 3-5 3" stroke="currentColor" stroke-width="1.4"/></svg></dd></div>
+    </dl>
+  </div>
+
+  <div class="creds">
+    <div class="wrap">
+      <div class="cred"><span class="tick" aria-hidden="true"></span><p data-i18n="stat.1">Nông trại gia đình tại Đắk Lắk</p></div>
+      <div class="cred"><span class="tick" aria-hidden="true"></span><p data-i18n="stat.2">Gần 10 năm gắn bó với Nhật Bản</p></div>
+      <div class="cred"><span class="tick" aria-hidden="true"></span><p data-i18n="stat.3">Fine Robusta — dòng sản phẩm chủ lực</p></div>
+      <div class="cred"><span class="tick" aria-hidden="true"></span><p data-i18n="stat.4">Truy xuất nguồn gốc theo từng lô</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section story" id="story">
+  <div class="wrap">
+    <p class="eyebrow" data-i18n="story.eyebrow">Câu chuyện thương hiệu</p>
+    <div class="story-grid">
+      <div class="story-col">
+        <p class="big" data-i18n="story.big">"Otosan" — người cha — là cách chúng tôi gọi hai điều đã nuôi lớn hành trình này: nông trại cà phê của gia đình ở Đắk Lắk, và những năm tháng trưởng thành tại Nhật Bản.</p>
+        <p data-i18n="story.p1">OTOSAN FARM ra đời từ mong muốn nối liền hai vùng đất: nơi hạt cà phê được trồng bằng công sức nhiều thế hệ của một gia đình Việt Nam, và nơi người tiêu dùng Nhật Bản đặt niềm tin vào chất lượng, sự minh bạch và độ ổn định của sản phẩm.</p>
+        <p data-i18n="story.p2">Chúng tôi không chỉ bán cà phê — chúng tôi xây dựng một hệ thống có thể theo dõi được: từ vườn cây, đến sơ chế, đến từng lô hàng xuất khẩu, để mỗi tách cà phê tại Nhật Bản đều có thể kể lại đúng câu chuyện của nó.</p>
+      </div>
+      <div class="story-col">
+        <figure class="story-photo">
+          <img src="assets/family-parents-farm.jpg" alt="Gia đình OTOSAN FARM tại vườn cà phê Đắk Lắk" loading="lazy">
+          <figcaption data-i18n="story.photocap">Gia đình OTOSAN FARM tại vườn cà phê, Đắk Lắk</figcaption>
+        </figure>
+        <div class="timeline">
+          <div class="t-item"><div class="t-year" data-i18n="story.t1y">GỐC RỄ</div><div class="t-text" data-i18n="story.t1">Gia đình trồng cà phê nhiều thế hệ tại Đắk Lắk, vùng đất đỏ bazan nổi tiếng của Robusta Việt Nam.</div></div>
+          <div class="t-item"><div class="t-year" data-i18n="story.t2y">HÀNH TRÌNH</div><div class="t-text" data-i18n="story.t2">Gần một thập kỷ học tập, nghiên cứu và làm việc tại Nhật Bản, mang theo tư duy chất lượng và kỷ luật vận hành.</div></div>
+          <div class="t-item"><div class="t-year" data-i18n="story.t3y">KHỞI ĐẦU</div><div class="t-text" data-i18n="story.t3">OTOSAN FARM được xây dựng để đưa Fine Robusta chất lượng cao ra thị trường Nhật Bản và thị trường trong nước.</div></div>
+          <div class="t-item"><div class="t-year" data-i18n="story.t4y">ĐỊNH HƯỚNG</div><div class="t-text" data-i18n="story.t4">Hiện kết hợp nguồn từ nông trại gia đình tại Đắk Lắk và nông hộ liên kết tại Gia Lai; định hướng tăng dần tỷ trọng từ chính nông trại Đắk Lắk, minh bạch chuỗi cung ứng và mở rộng dần sang các nông sản chất lượng khác.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section band-soil" id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="products.eyebrow">Sản phẩm</p>
+      <h2 data-i18n="products.h2">Fine Robusta Việt Nam</h2>
+      <p data-i18n="products.p">Giai đoạn đầu, OTOSAN FARM tập trung vào ba dòng sản phẩm cốt lõi, chọn lọc từ vùng nguyên liệu Đắk Lắk.</p>
+    </div>
+    <div class="pgrid">
+      <div class="pcard">
+        <img class="pimg" src="assets/green-beans-hand.jpg" alt="Cà phê nhân xanh Robusta" loading="lazy">
+        <div class="pbody">
+          <div class="pcode">OTS · GREEN BEAN</div>
+          <h3 data-i18n="products.c1h">Cà phê nhân xanh</h3>
+          <p data-i18n="products.c1p">Robusta nhân xanh chọn lọc, phân loại theo kích cỡ và độ ẩm đạt chuẩn, phù hợp cho nhà rang xay tại Nhật Bản.</p>
+          <span class="ptag" data-i18n="products.c1t">Xuất khẩu B2B</span>
+        </div>
+      </div>
+      <div class="pcard">
+        <img class="pimg" src="assets/qc-worker-packaging.jpg" alt="Kiểm soát chất lượng và đóng gói cà phê rang hạt OTOSAN FARM" loading="lazy">
+        <div class="pbody">
+          <div class="pcode">OTS · ROASTED BEAN</div>
+          <h3 data-i18n="products.c2h">Cà phê rang hạt</h3>
+          <p data-i18n="products.c2p">Rang theo mẻ nhỏ để giữ trọn hương vị đặc trưng của Fine Robusta, sẵn sàng cho nhà rang xay và quán cà phê.</p>
+          <span class="ptag" data-i18n="products.c2t">B2B / Bán sỉ</span>
+        </div>
+      </div>
+      <div class="pcard">
+        <img class="pimg" src="assets/ground-coffee-scoop.jpg" alt="Cà phê rang xay OTOSAN FARM" loading="lazy">
+        <div class="pbody">
+          <div class="pcode">OTS · GROUND</div>
+          <h3 data-i18n="products.c3h">Cà phê rang xay</h3>
+          <p data-i18n="products.c3p">Sản phẩm hoàn thiện cho người tiêu dùng cuối, đóng gói tiêu chuẩn, hướng đến thị trường trong nước và Nhật Bản.</p>
+          <span class="ptag" data-i18n="products.c3t">B2C / Bán lẻ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section trace" id="trace">
+  <div class="wrap">
+    <div class="trace-grid">
+      <div>
+        <div class="section-head" style="margin-bottom:28px;">
+          <p class="eyebrow" data-i18n="trace.eyebrow">Truy xuất nguồn gốc</p>
+          <h2 data-i18n="trace.h2">Mỗi lô hàng, một câu chuyện có thể kiểm chứng</h2>
+          <p data-i18n="trace.p">Chọn một mã lô để xem thông tin truy xuất nguồn gốc — mô hình minh họa cho hệ thống quản lý từng lô cà phê của OTOSAN FARM.</p>
+        </div>
+        <div class="lotrow" id="lotrow">
+          <button type="button" class="lotchip" data-lot="0" aria-pressed="false">FR1125</button>
+          <span class="lotchip lotchip-pending" data-i18n="trace.pending">Lô tiếp theo — đang cập nhật</span>
+        </div>
+
+        <div class="lotdoc" id="lotdoc" hidden>
+          <div class="ld-top">
+            <span class="ld-lot"><span class="ld-lot-label" data-i18n="trace.doc">Phiếu thông tin lô</span><b id="ld-lotcode">FR1125</b></span>
+            <span class="ld-status" id="ld-status">—</span>
+          </div>
+          <div class="procbar" aria-hidden="true">
+            <div class="step" data-active="true">
+              <svg class="s-ico" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="15" r="5" stroke="currentColor" stroke-width="1.7"/><circle cx="15.5" cy="12" r="5" stroke="currentColor" stroke-width="1.7"/><path d="M12 7c1-3 3-4 5-4" stroke="currentColor" stroke-width="1.7"/></svg>
+              <span class="s-lbl" data-i18n="proc.cherry">Quả chín</span>
+            </div>
+            <div class="step" data-active="true">
+              <svg class="s-ico" viewBox="0 0 24 24" fill="none"><path d="M3 19h18M5 19c0-4 3-7 7-7s7 3 7 7M12 4v3M7 6l1.5 2M17 6l-1.5 2" stroke="currentColor" stroke-width="1.7"/></svg>
+              <span class="s-lbl" data-i18n="proc.dry">Phơi khô</span>
+            </div>
+            <div class="step">
+              <svg class="s-ico" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v10l-7 4-7-4V7l7-4zM12 12l7-4M12 12v9M12 12L5 8" stroke="currentColor" stroke-width="1.6"/></svg>
+              <span class="s-lbl" data-i18n="proc.hull">Xát vỏ</span>
+            </div>
+            <div class="step">
+              <svg class="s-ico" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16M9 4v16" stroke="currentColor" stroke-width="1.7"/></svg>
+              <span class="s-lbl" data-i18n="proc.grade">Phân loại</span>
+            </div>
+          </div>
+          <div class="lotgrid" id="lotgrid"></div>
+        </div>
+
+        <p class="trace-note" data-i18n="trace.note">* FR1125 là lô mẫu đánh giá thương mại thực tế (200g, niên vụ 2025–2026), nguồn từ nông hộ liên kết tại Gia Lai. Hiện OTOSAN FARM kết hợp nguồn từ nông trại gia đình tại Đắk Lắk và nông hộ liên kết; định hướng sẽ tăng dần tỷ trọng từ nông trại Đắk Lắk. <span class="placeholder-flag">Số lượng tồn kho cùng lô: CẦN BỔ SUNG</span></p>
+      </div>
+      <div class="trace-photo">
+        <img src="assets/hands-holding-cherries.jpg" alt="Cà phê chín được thu hái tại Đắk Lắk" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section quality">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="quality.eyebrow">Cam kết chất lượng</p>
+      <h2 data-i18n="quality.h2">Vận hành minh bạch, có kiểm chứng</h2>
+    </div>
+    <div class="quality-grid">
+      <div class="quality-photo"><img src="assets/farmer-picking-cherries.jpg" alt="Nông dân thu hái cà phê tại Đắk Lắk" loading="lazy"></div>
+      <div class="qgrid">
+        <div class="qitem"><div class="qn">QC · 01</div><h3 data-i18n="quality.q1h">Kiểm nghiệm chất lượng</h3><p data-i18n="quality.q1p">Kiểm tra độ ẩm, tạp chất, kích cỡ hạt trước khi đóng gói và xuất khẩu.</p></div>
+        <div class="qitem"><div class="qn">QC · 02</div><h3 data-i18n="quality.q2h">Chứng từ đầy đủ</h3><p data-i18n="quality.q2p">Hồ sơ sản phẩm, chứng nhận xuất xứ và các giấy tờ xuất khẩu theo quy định hiện hành.</p></div>
+        <div class="qitem"><div class="qn">QC · 03</div><h3 data-i18n="quality.q3h">Đóng gói tiêu chuẩn</h3><p data-i18n="quality.q3p">Bao bì và nhãn hàng hóa phù hợp với yêu cầu của từng thị trường.</p></div>
+        <div class="qitem"><div class="qn">QC · 04</div><h3 data-i18n="quality.q4h">Đồng hành cùng nông dân</h3><p data-i18n="quality.q4p">Hợp tác lâu dài với vùng nguyên liệu tại Đắk Lắk để đảm bảo nguồn cung ổn định.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section band-indigo" id="japan">
+  <div class="wrap">
+    <div class="jgrid">
+      <div>
+        <p class="eyebrow" data-i18n="japan.eyebrow">日本市場 / Thị trường Nhật Bản</p>
+        <h2 data-i18n="japan.h2">パートナー企業様へ</h2>
+        <p style="margin-bottom:22px;color:rgba(240,235,221,0.82);" data-i18n="japan.p">OTOSAN FARMは、ベトナム・ダクラク省の家族農園から日本のロースターへ、透明性の高いサプライチェーンでファインロブスタを届けます。</p>
+        <ul class="jlist">
+          <li data-i18n="japan.l1">生豆・焙煎豆・粉末の3ラインを展開</li>
+          <li data-i18n="japan.l2">ロット単位のトレーサビリティ管理</li>
+          <li data-i18n="japan.l3">品質検査書類・原産地証明などの輸出書類対応</li>
+          <li data-i18n="japan.l4">サンプル出荷から本格取引まで柔軟に対応</li>
+        </ul>
+      </div>
+      <div class="jcard">
+        <img src="assets/pour-over-brewing.jpg" alt="Pha cà phê OTOSAN FARM kiểu pour-over" loading="lazy">
+        <div class="jc-label" data-i18n="japan.jc1l">取扱品目</div>
+        <div class="jc-value" data-i18n="japan.jc1v">ファインロブスタ生豆 / 焙煎豆 / 粉末</div>
+        <div class="jc-label" data-i18n="japan.jc2l">産地</div>
+        <div class="jc-value" data-i18n="japan.jc2v">ダクラク省（自社農園）／ザーライ省（提携農家）</div>
+        <div class="jc-label" data-i18n="japan.jc3l">対応言語</div>
+        <div class="jc-value" data-i18n="japan.jc3v">日本語 / ベトナム語 / 英語</div>
+        <div class="jc-label" data-i18n="japan.jc4l">お問い合わせ担当</div>
+        <div class="jc-value">Ngo Thi Thu Thao（代表者）<br>TEL：+84 849 201 092<br>Email：ngothao201092@gmail.com</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section gallery" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="gallery.eyebrow">Hình ảnh thực tế</p>
+      <h2 data-i18n="gallery.h2">Từ vườn cây đến bao bì thành phẩm</h2>
+    </div>
+    <div class="ggrid">
+      <figure class="tall"><img src="assets/farmer-standing-rows.jpg" alt="Hàng cà phê tại nông trại Đắk Lắk" loading="lazy"><figcaption data-i18n="gallery.c1">Hàng cây tại nông trại</figcaption></figure>
+      <figure><img src="assets/ripe-cherries-pile.jpg" alt="Cà phê chín thu hoạch" loading="lazy"><figcaption data-i18n="gallery.c2">Cà phê vừa thu hái</figcaption></figure>
+      <figure><img src="assets/vietnamese-phin-coffee.jpg" alt="Pha cà phê phin Việt Nam" loading="lazy"><figcaption data-i18n="gallery.c3">Phin cà phê truyền thống</figcaption></figure>
+      <figure class="tall"><img src="assets/dried-cherries-natural.jpg" alt="Cà phê sơ chế natural phơi khô" loading="lazy"><figcaption data-i18n="gallery.c4">Sơ chế natural, phơi khô tự nhiên</figcaption></figure>
+      <figure><img src="assets/farmer-working-field.jpg" alt="Chăm sóc vườn cà phê" loading="lazy"><figcaption data-i18n="gallery.c5">Chăm sóc vườn hằng ngày</figcaption></figure>
+      <figure><img src="assets/espresso-cup.jpg" alt="Espresso OTOSAN FARM" loading="lazy"><figcaption data-i18n="gallery.c6">Espresso từ Fine Robusta</figcaption></figure>
+      <figure><img src="assets/packed-bags-warehouse.jpg" alt="Đóng gói thành phẩm" loading="lazy"><figcaption data-i18n="gallery.c7">Sẵn sàng xuất khẩu</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="section band-deepest" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="contact.eyebrow">Liên hệ</p>
+      <h2 data-i18n="contact.h2">Hợp tác cùng OTOSAN FARM</h2>
+      <p data-i18n="contact.p">Nhà nhập khẩu, nhà rang xay, đại lý phân phối hoặc khách hàng quan tâm — vui lòng liên hệ để nhận báo giá và mẫu sản phẩm.</p>
+    </div>
+    <div class="cgrid">
+      <div class="cinfo">
+        <div class="ci-row"><div class="ci-label" data-i18n="contact.addr">Địa chỉ</div><div class="ci-value" data-i18n="contact.addrv">322 Trần Hưng Đạo, phường Kon Tum, tỉnh Quảng Ngãi, Việt Nam</div></div>
+        <div class="ci-row"><div class="ci-label" data-i18n="contact.email">Email</div><div class="ci-value"><a href="mailto:ngothao201092@gmail.com">ngothao201092@gmail.com</a></div></div>
+        <div class="ci-row"><div class="ci-label" data-i18n="contact.phone">Điện thoại</div><div class="ci-value"><a href="tel:+84849201092">+84 849 201 092</a></div></div>
+        <div class="ci-row"><div class="ci-label" data-i18n="contact.tax">Mã số thuế / MST</div><div class="ci-value">[CẦN BỔ SUNG] <span class="placeholder-flag">Đăng ký kinh doanh</span></div></div>
+      </div>
+      <form class="cform" id="cform" novalidate>
+        <div class="field">
+          <label for="f-name" data-i18n="form.name">Họ và tên</label>
+          <input id="f-name" name="name" type="text" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="f-company" data-i18n="form.company">Công ty</label>
+          <input id="f-company" name="company" type="text" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="f-email" data-i18n="form.email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="f-need" data-i18n="form.opt0">Chọn nhu cầu liên hệ</label>
+          <select id="f-need" name="need">
+            <option data-i18n="form.opt1">Nhập khẩu</option>
+            <option data-i18n="form.opt2">Mua sỉ trong nước</option>
+            <option data-i18n="form.opt3">Khác</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-msg" data-i18n="form.msg">Nội dung liên hệ</label>
+          <textarea id="f-msg" name="message"></textarea>
+        </div>
+        <button type="submit" data-i18n="form.submit">Gửi liên hệ</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <img class="foot-logo" src="assets/logo-white.png" alt="OTOSAN FARM">
+      <span>© 2025–2026 OTOSAN FARM. <span data-i18n="footer.rights">Bản quyền được bảo lưu.</span></span>
+    </div>
+    <div data-i18n="footer.note">Đắk Lắk, Việt Nam — hướng đến thị trường Nhật Bản</div>
+  </div>
+</footer>
+
+<script>
+const i18n = {
+  vi: {
+    "nav.story":"Câu chuyện","nav.products":"Sản phẩm","nav.trace":"Truy xuất nguồn gốc","nav.japan":"Thị trường Nhật Bản","nav.gallery":"Hình ảnh","nav.contact":"Liên hệ","nav.cta":"Nhận báo giá",
+    "story.photocap":"Gia đình OTOSAN FARM tại vườn cà phê, Đắk Lắk",
+    "gallery.eyebrow":"Hình ảnh thực tế","gallery.h2":"Từ vườn cây đến bao bì thành phẩm",
+    "gallery.c1":"Hàng cây tại nông trại","gallery.c2":"Cà phê vừa thu hái","gallery.c3":"Phin cà phê truyền thống","gallery.c4":"Sơ chế natural, phơi khô tự nhiên","gallery.c5":"Chăm sóc vườn hằng ngày","gallery.c6":"Espresso từ Fine Robusta","gallery.c7":"Sẵn sàng xuất khẩu",
+    "hero.eyebrow":"Đắk Lắk, Việt Nam → Nhật Bản",
+    "hero.h1":'Từ đất đỏ bazan đến tách cà phê <em>Nhật Bản</em>',
+    "hero.lead":"OTOSAN FARM đưa Fine Robusta Việt Nam ra thế giới bằng con đường minh bạch, chuyên nghiệp và bền vững — bắt đầu từ chính nông trại của gia đình chúng tôi.",
+    "hero.cta1":"Xem sản phẩm","hero.cta2":"Liên hệ hợp tác",
+    "manifest.exporter":"Đơn vị xuất khẩu","manifest.exporterv":"OTOSAN FARM — Ngô Thị Thu Thảo",
+    "manifest.commodity":"Mặt hàng","manifest.commodityv":"Fine Robusta — nhân xanh / rang hạt / rang xay",
+    "manifest.origin":"Xuất xứ","manifest.originv":"Đắk Lắk, Việt Nam · ~12,67°N",
+    "manifest.process":"Sơ chế","manifest.processv":"Natural — phơi nắng tự nhiên",
+    "manifest.grade":"Phân loại","manifest.gradev":"Sàng S13 / S16 / S18 · hạt lỗi 0%",
+    "manifest.dest":"Thị trường đến","manifest.route":"Đắk Lắk → Nhật Bản",
+    "stat.1":"Nông trại gia đình tại Đắk Lắk","stat.2":"Gần 10 năm gắn bó với Nhật Bản","stat.3":"Fine Robusta — dòng sản phẩm chủ lực","stat.4":"Truy xuất nguồn gốc theo từng lô",
+    "story.eyebrow":"Câu chuyện thương hiệu",
+    "story.big":'"Otosan" — người cha — là cách chúng tôi gọi hai điều đã nuôi lớn hành trình này: nông trại cà phê của gia đình ở Đắk Lắk, và những năm tháng trưởng thành tại Nhật Bản.',
+    "story.p1":"OTOSAN FARM ra đời từ mong muốn nối liền hai vùng đất: nơi hạt cà phê được trồng bằng công sức nhiều thế hệ của một gia đình Việt Nam, và nơi người tiêu dùng Nhật Bản đặt niềm tin vào chất lượng, sự minh bạch và độ ổn định của sản phẩm.",
+    "story.p2":"Chúng tôi không chỉ bán cà phê — chúng tôi xây dựng một hệ thống có thể theo dõi được: từ vườn cây, đến sơ chế, đến từng lô hàng xuất khẩu, để mỗi tách cà phê tại Nhật Bản đều có thể kể lại đúng câu chuyện của nó.",
+    "story.t1y":"GỐC RỄ","story.t1":"Gia đình trồng cà phê nhiều thế hệ tại Đắk Lắk, vùng đất đỏ bazan nổi tiếng của Robusta Việt Nam.",
+    "story.t2y":"HÀNH TRÌNH","story.t2":"Gần một thập kỷ học tập, nghiên cứu và làm việc tại Nhật Bản, mang theo tư duy chất lượng và kỷ luật vận hành.",
+    "story.t3y":"KHỞI ĐẦU","story.t3":"OTOSAN FARM được xây dựng để đưa Fine Robusta chất lượng cao ra thị trường Nhật Bản và thị trường trong nước.",
+    "story.t4y":"ĐỊNH HƯỚNG","story.t4":"Hiện kết hợp nguồn từ nông trại gia đình tại Đắk Lắk và nông hộ liên kết tại Gia Lai; định hướng tăng dần tỷ trọng từ chính nông trại Đắk Lắk, minh bạch chuỗi cung ứng và mở rộng dần sang các nông sản chất lượng khác.",
+    "products.eyebrow":"Sản phẩm","products.h2":"Fine Robusta Việt Nam",
+    "products.p":"Giai đoạn đầu, OTOSAN FARM tập trung vào ba dòng sản phẩm cốt lõi, chọn lọc từ vùng nguyên liệu Đắk Lắk.",
+    "products.c1h":"Cà phê nhân xanh","products.c1p":"Robusta nhân xanh chọn lọc, phân loại theo kích cỡ và độ ẩm đạt chuẩn, phù hợp cho nhà rang xay tại Nhật Bản.","products.c1t":"Xuất khẩu B2B",
+    "products.c2h":"Cà phê rang hạt","products.c2p":"Rang theo mẻ nhỏ để giữ trọn hương vị đặc trưng của Fine Robusta, sẵn sàng cho nhà rang xay và quán cà phê.","products.c2t":"B2B / Bán sỉ",
+    "products.c3h":"Cà phê rang xay","products.c3p":"Sản phẩm hoàn thiện cho người tiêu dùng cuối, đóng gói tiêu chuẩn, hướng đến thị trường trong nước và Nhật Bản.","products.c3t":"B2C / Bán lẻ",
+    "trace.eyebrow":"Truy xuất nguồn gốc","trace.h2":"Mỗi lô hàng, một câu chuyện có thể kiểm chứng",
+    "trace.pending":"Lô tiếp theo — đang cập nhật",
+    "trace.p":"Chọn một mã lô để xem thông tin truy xuất nguồn gốc — mô hình minh họa cho hệ thống quản lý từng lô cà phê của OTOSAN FARM.",
+    "trace.doc":"Phiếu thông tin lô","proc.cherry":"Quả chín","proc.dry":"Phơi khô","proc.hull":"Xát vỏ","proc.grade":"Phân loại",
+    "trace.note":'* FR1125 là lô mẫu đánh giá thương mại thực tế (200g, niên vụ 2025–2026), nguồn từ nông hộ liên kết tại Gia Lai. Hiện OTOSAN FARM kết hợp nguồn từ nông trại gia đình tại Đắk Lắk và nông hộ liên kết; định hướng sẽ tăng dần tỷ trọng từ nông trại Đắk Lắk. <span class="placeholder-flag">Số lượng tồn kho cùng lô: CẦN BỔ SUNG</span>',
+    "quality.eyebrow":"Cam kết chất lượng","quality.h2":"Vận hành minh bạch, có kiểm chứng",
+    "quality.q1h":"Kiểm nghiệm chất lượng","quality.q1p":"Kiểm tra độ ẩm, tạp chất, kích cỡ hạt trước khi đóng gói và xuất khẩu.",
+    "quality.q2h":"Chứng từ đầy đủ","quality.q2p":"Hồ sơ sản phẩm, chứng nhận xuất xứ và các giấy tờ xuất khẩu theo quy định hiện hành.",
+    "quality.q3h":"Đóng gói tiêu chuẩn","quality.q3p":"Bao bì và nhãn hàng hóa phù hợp với yêu cầu của từng thị trường.",
+    "quality.q4h":"Đồng hành cùng nông dân","quality.q4p":"Hợp tác lâu dài với vùng nguyên liệu tại Đắk Lắk để đảm bảo nguồn cung ổn định.",
+    "japan.eyebrow":"日本市場 / Thị trường Nhật Bản","japan.h2":"Gửi các đối tác Nhật Bản",
+    "japan.p":"OTOSAN FARM đưa Fine Robusta từ nông trại gia đình tại Đắk Lắk đến các nhà rang xay Nhật Bản qua một chuỗi cung ứng minh bạch.",
+    "japan.l1":"Ba dòng sản phẩm: cà phê nhân xanh, rang hạt, rang xay","japan.l2":"Quản lý truy xuất nguồn gốc theo từng lô","japan.l3":"Đầy đủ chứng từ: kiểm nghiệm chất lượng, chứng nhận xuất xứ","japan.l4":"Linh hoạt từ lô hàng mẫu đến hợp tác dài hạn",
+    "japan.jc1l":"Sản phẩm","japan.jc1v":"Cà phê nhân xanh / rang hạt / rang xay — Fine Robusta",
+    "japan.jc2l":"Vùng nguyên liệu","japan.jc2v":"Đắk Lắk (nông trại gia đình) và Gia Lai (nông hộ liên kết)",
+    "japan.jc3l":"Ngôn ngữ hỗ trợ","japan.jc3v":"Tiếng Nhật / Tiếng Việt / Tiếng Anh",
+    "japan.jc4l":"Liên hệ phụ trách",
+    "contact.eyebrow":"Liên hệ","contact.h2":"Hợp tác cùng OTOSAN FARM",
+    "contact.p":"Nhà nhập khẩu, nhà rang xay, đại lý phân phối hoặc khách hàng quan tâm — vui lòng liên hệ để nhận báo giá và mẫu sản phẩm.",
+    "contact.addr":"Địa chỉ","contact.addrv":"322 Trần Hưng Đạo, phường Kon Tum, tỉnh Quảng Ngãi, Việt Nam","contact.email":"Email","contact.phone":"Điện thoại","contact.tax":"Mã số thuế / MST",
+    "form.name":"Họ và tên","form.company":"Công ty","form.email":"Email",
+    "form.opt0":"Chọn nhu cầu liên hệ","form.opt1":"Nhập khẩu","form.opt2":"Mua sỉ trong nước","form.opt3":"Khác",
+    "form.msg":"Nội dung liên hệ","form.submit":"Gửi liên hệ","form.sent":"Cảm ơn bạn. Đây là bản demo — vui lòng gửi email trực tiếp tới ngothao201092@gmail.com.",
+    "footer.rights":"Bản quyền được bảo lưu.","footer.note":"Đắk Lắk, Việt Nam — hướng đến thị trường Nhật Bản"
+  },
+  ja: {
+    "nav.story":"ストーリー","nav.products":"製品","nav.trace":"トレーサビリティ","nav.japan":"日本市場","nav.gallery":"写真","nav.contact":"お問い合わせ","nav.cta":"見積もり依頼",
+    "story.photocap":"ダクラク省の農園にてOTOSAN FARMの家族",
+    "gallery.eyebrow":"実際の写真","gallery.h2":"農園から完成した製品まで",
+    "gallery.c1":"農園の畑","gallery.c2":"収穫したばかりのコーヒー","gallery.c3":"伝統的なベトナムコーヒー(フィン)","gallery.c4":"ナチュラル精選、天日乾燥","gallery.c5":"日々の畑の手入れ","gallery.c6":"ファインロブスタのエスプレッソ","gallery.c7":"輸出準備完了",
+    "hero.eyebrow":"ベトナム・ダクラク → 日本",
+    "hero.h1":'赤い大地バザンから<em>日本</em>のコーヒーカップへ',
+    "hero.lead":"OTOSAN FARMは、ベトナムのファインロブスタを透明性・専門性・持続可能性をもって世界へ届けます。すべては私たち家族の農園から始まりました。",
+    "hero.cta1":"製品を見る","hero.cta2":"お問い合わせ",
+    "manifest.exporter":"輸出者","manifest.exporterv":"OTOSAN FARM — Ngô Thị Thu Thảo",
+    "manifest.commodity":"品目","manifest.commodityv":"ファインロブスタ — 生豆 / 焙煎豆 / 粉末",
+    "manifest.origin":"産地","manifest.originv":"ベトナム・ダクラク省 · 約12.67°N",
+    "manifest.process":"精選","manifest.processv":"ナチュラル（天日乾燥）",
+    "manifest.grade":"格付け","manifest.gradev":"スクリーン S13 / S16 / S18 · 欠点 0%",
+    "manifest.dest":"仕向地","manifest.route":"ダクラク → 日本",
+    "stat.1":"ダクラク省の家族経営農園","stat.2":"日本での約10年の歩み","stat.3":"主力製品：ファインロブスタ","stat.4":"ロット単位のトレーサビリティ",
+    "story.eyebrow":"ブランドストーリー",
+    "story.big":"「オトサン（お父さん）」— この名前には、ダクラク省の家族のコーヒー農園と、日本で過ごした歳月、二つの物語が込められています。",
+    "story.p1":"OTOSAN FARMは、ベトナムの家族が何世代にもわたり育ててきたコーヒー豆と、品質・透明性・安定性を重視する日本の消費者をつなぐために生まれました。",
+    "story.p2":"私たちはコーヒーを売るだけではありません。農園から精選、輸出ロットに至るまで追跡可能な仕組みを構築し、日本で飲まれる一杯一杯が正しい物語を語れるようにしています。",
+    "story.t1y":"ルーツ","story.t1":"ベトナムのロブスタで知られる赤土バザン地帯、ダクラク省で代々コーヒーを育てる家族。",
+    "story.t2y":"歩み","story.t2":"日本での約10年間の学び・研究・仕事を通じて、品質への意識と運営の規律を培う。",
+    "story.t3y":"創業","story.t3":"高品質なファインロブスタを日本市場と国内市場へ届けるためOTOSAN FARMを設立。",
+    "story.t4y":"今後の方向性","story.t4":"現在はダクラク省の自社農園とザーライ省の提携農家の両方から仕入れており、今後は自社農園（ダクラク省）の比率を高めながら、サプライチェーンの透明性を高め、他の高品質な農産物へも展開予定。",
+    "products.eyebrow":"製品","products.h2":"ベトナム産ファインロブスタ",
+    "products.p":"創業初期は、ダクラク省の原料エリアから厳選した3つの主力製品に注力しています。",
+    "products.c1h":"生豆（グリーンビーンズ）","products.c1p":"サイズと水分値を基準に選別したロブスタ生豆。日本のロースターに適した規格。","products.c1t":"輸出 B2B",
+    "products.c2h":"焙煎豆","products.c2p":"ファインロブスタ本来の風味を保つため小ロットで焙煎。ロースターやカフェ向け。","products.c2t":"B2B卸売",
+    "products.c3h":"粉末（挽き豆）","products.c3p":"エンドユーザー向けの完成品。標準規格で包装し、国内および日本市場向け。","products.c3t":"B2C小売",
+    "trace.eyebrow":"トレーサビリティ","trace.h2":"すべてのロットに、検証可能なストーリーを",
+    "trace.pending":"次のロット — 準備中",
+    "trace.p":"ロット番号を選択すると、トレーサビリティ情報が表示されます。OTOSAN FARMのロット管理システムのデモンストレーションです。",
+    "trace.doc":"ロット情報シート","proc.cherry":"完熟チェリー","proc.dry":"天日乾燥","proc.hull":"脱殻","proc.grade":"選別",
+    "trace.note":'※FR1125は実際の商談評価用サンプル（200g、2025–2026年度）で、ザーライ省の提携農家由来です。現在OTOSAN FARMはダクラク省の自社農園と提携農家の両方から仕入れており、今後は自社農園（ダクラク省）の比率を高めていく方針です。<span class="placeholder-flag">同ロットの在庫数量：要追加</span>',
+    "quality.eyebrow":"品質へのこだわり","quality.h2":"検証可能な、透明な運営",
+    "quality.q1h":"品質検査","quality.q1p":"包装・輸出前に水分値・不純物・粒度を検査。",
+    "quality.q2h":"充実した書類","quality.q2p":"製品仕様書、原産地証明、その他輸出関連書類を規定に沿って準備。",
+    "quality.q3h":"標準化された梱包","quality.q3p":"各市場の要件に適合した梱包・ラベル表示。",
+    "quality.q4h":"生産者との共創","quality.q4p":"ダクラク省の生産者との長期的な連携により、安定供給を実現。",
+    "japan.eyebrow":"日本市場 / Thị trường Nhật Bản","japan.h2":"パートナー企業様へ",
+    "japan.p":"OTOSAN FARMは、ベトナム・ダクラク省の家族農園から日本のロースターへ、透明性の高いサプライチェーンでファインロブスタを届けます。",
+    "japan.l1":"生豆・焙煎豆・粉末の3ラインを展開","japan.l2":"ロット単位のトレーサビリティ管理","japan.l3":"品質検査書類・原産地証明などの輸出書類対応","japan.l4":"サンプル出荷から本格取引まで柔軟に対応",
+    "japan.jc1l":"取扱品目","japan.jc1v":"ファインロブスタ生豆 / 焙煎豆 / 粉末",
+    "japan.jc2l":"産地","japan.jc2v":"ダクラク省（自社農園）／ザーライ省（提携農家）",
+    "japan.jc3l":"対応言語","japan.jc3v":"日本語 / ベトナム語 / 英語",
+    "japan.jc4l":"お問い合わせ担当",
+    "contact.eyebrow":"お問い合わせ","contact.h2":"OTOSAN FARMとのご連絡",
+    "contact.p":"輸入業者様、ロースター様、代理店様、その他ご興味のある方は、お見積もりとサンプルについてお気軽にお問い合わせください。",
+    "contact.addr":"住所","contact.addrv":"ベトナム、クアンガイ省コントゥム坊チャンフンダオ通り322番地","contact.email":"メール","contact.phone":"電話番号","contact.tax":"法人番号",
+    "form.name":"お名前","form.company":"会社名","form.email":"メール",
+    "form.opt0":"お問い合わせ内容を選択","form.opt1":"輸入について","form.opt2":"国内卸売について","form.opt3":"その他",
+    "form.msg":"お問い合わせ内容","form.submit":"送信する","form.sent":"ありがとうございます。これはデモです。ngothao201092@gmail.com まで直接メールをお送りください。",
+    "footer.rights":"All rights reserved.","footer.note":"ベトナム・ダクラク省 — 日本市場を目指して"
+  }
+};
+
+const lots = {
+  vi: [
+    {code:"FR1125", farm:"Nông hộ liên kết, xã Chư Prông, tỉnh Gia Lai", altitude:"600–800 m", variety:"Robusta (giống Sẻ, TR4)", process:"Natural (chế biến khô)", harvest:"Tháng 11/2025 (niên vụ 2025–2026)", moisture:"12,5–13,0%", screen:"S13 / S16 / S18", defect:"0%", status:"Mẫu đánh giá thương mại — đã kiểm nghiệm"}
+  ],
+  ja: [
+    {code:"FR1125", farm:"提携農家（チュープロン郡、ザーライ省）", altitude:"600〜800m", variety:"ロブスタ（セー種・TR4種）", process:"ナチュラル製法", harvest:"2025年11月（2025–2026年度）", moisture:"12.5〜13.0%", screen:"S13 / S16 / S18", defect:"0%", status:"商談評価用サンプル・検査済み"}
+  ]
+};
+
+const labels = {
+  vi:{farm:"Nông hộ / đối tác", altitude:"Độ cao", variety:"Giống", process:"Sơ chế", harvest:"Thu hoạch", moisture:"Độ ẩm", screen:"Kích thước sàng", defect:"Hạt lỗi", status:"Trạng thái"},
+  ja:{farm:"農家・提携先", altitude:"標高", variety:"品種", process:"精選方法", harvest:"収穫時期", moisture:"水分値", screen:"スクリーンサイズ", defect:"欠点豆", status:"ステータス"}
+};
+
+let currentLang = 'vi';
+let activeLotIndex = null;
+
+const lotdocEl  = document.getElementById('lotdoc');
+const lotgridEl = document.getElementById('lotgrid');
+const lotcodeEl = document.getElementById('ld-lotcode');
+const lotstatEl = document.getElementById('ld-status');
+
+function renderLotDetail(idx){
+  if(idx === null || idx === undefined){
+    lotdocEl.hidden = true;
+    lotgridEl.innerHTML = '';
+    return;
+  }
+  const lot = lots[currentLang][idx];
+  const lb  = labels[currentLang];
+  lotcodeEl.textContent = lot.code;
+  lotstatEl.textContent = lot.status;
+  const order = ['farm','altitude','variety','process','harvest','moisture','screen','defect','status'];
+  lotgridEl.innerHTML = order.map(k =>
+    `<div class="lg-cell"><div class="lg-label">${lb[k]}</div><div class="lg-value">${lot[k]}</div></div>`
+  ).join('');
+  lotdocEl.hidden = false;
+}
+
+function applyLang(lang){
+  currentLang = lang;
+  const root = document.documentElement;
+  root.setAttribute('data-lang', lang);
+  root.setAttribute('lang', lang === 'ja' ? 'ja' : 'vi');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    const val = i18n[lang][key];
+    if(val !== undefined) el.innerHTML = val;
+  });
+  document.querySelectorAll('.langtoggle button').forEach(b=>{
+    b.setAttribute('aria-pressed', String(b.getAttribute('data-setlang') === lang));
+  });
+  if(activeLotIndex !== null) renderLotDetail(activeLotIndex);
+}
+
+document.querySelectorAll('.langtoggle button').forEach(btn=>{
+  btn.addEventListener('click', ()=> applyLang(btn.getAttribute('data-setlang')));
+});
+
+document.querySelectorAll('.lotchip[data-lot]').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    const idx = parseInt(chip.getAttribute('data-lot'), 10);
+    const wasActive = chip.getAttribute('aria-pressed') === 'true';
+    document.querySelectorAll('.lotchip[data-lot]').forEach(c=> c.setAttribute('aria-pressed','false'));
+    if(wasActive){
+      activeLotIndex = null;
+      renderLotDetail(null);
+    } else {
+      chip.setAttribute('aria-pressed','true');
+      activeLotIndex = idx;
+      renderLotDetail(idx);
+    }
+  });
+});
+
+// contact form — demo feedback only (no backend)
+const cform = document.getElementById('cform');
+if(cform){
+  cform.addEventListener('submit', e=>{
+    e.preventDefault();
+    document.getElementById('form-status').textContent = i18n[currentLang]['form.sent'];
+    cform.reset();
+  });
+}
+
+applyLang('vi');
+
+// default-select the sample lot
+const firstChip = document.querySelector('.lotchip[data-lot="0"]');
+if(firstChip){
+  firstChip.setAttribute('aria-pressed','true');
+  activeLotIndex = 0;
+  renderLotDetail(0);
+}
+</script>
+
+<script>
+// scroll progress indicator (harmless if it never runs)
+(function(){
+  var bar = document.getElementById('progress');
+  if(!bar) return;
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = max > 0 ? (h.scrollTop / max * 100) + '%' : '0%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+})();
+</script>
+
+</body>
+</html>
